@@ -29,15 +29,17 @@ public class ReadFileLineByLine {
 	public static String[] cleanArray(String[] array) {
 		return Arrays.stream(array).filter(x -> !StringUtils.isEmpty(x)).toArray(String[]::new);
 	}
-
+        
 	public static void main(String[] args) {
-
+                
+		// File path of input file
 		String filePath = "src/main/resources/small.txt";
 		List<String[]> data = new ArrayList<>();
 
 		String[] array = null;
 		try {
 			String content = readFile(filePath, StandardCharsets.UTF_8);
+		        // Spliting the sentences in the file by dot
 			array = content.split("\\.");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,7 +50,7 @@ public class ReadFileLineByLine {
 			String[] words = str.split("\\s");
 			words = cleanArray(words);
 
-			// Sorting words from sentence by ascending order
+			// Sorting words from sentence by ascending order using Comparator interface
 			Arrays.sort(words, new Comparator<String>() {
 				@Override
 				public int compare(String o1, String o2) {
@@ -62,7 +64,7 @@ public class ReadFileLineByLine {
 		generateCSV(data);
 	}
 
-	// Function to print the ordering of words
+	// Function to generate output CSV file and Store words for each sentence as per requirement
 	static void generateCSV(List<String[]> data) {
 
 		CSVWriter csvWrite = null;
